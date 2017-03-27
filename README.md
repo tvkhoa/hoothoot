@@ -25,9 +25,13 @@ Remember to install lodash also :D
 It will take a path which has shape like:
 
 > a.b
+
 > a[0].b
+
 > a[{id:1}].b
+
 > [0].b
+
 > [{id:1}].b
 
 And normalize it to a string that lodash get set can understand
