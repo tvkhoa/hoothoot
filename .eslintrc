@@ -1,0 +1,70 @@
+{
+  "ecmaFeatures": {
+    "globalReturn": true,
+    "jsx": true,
+    "modules": true
+  },
+
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+
+  "globals": {
+    "document": false,
+    "escape": false,
+    "navigator": false,
+    "unescape": false,
+    "window": false,
+    "describe": true,
+    "before": true,
+    "it": true,
+    "expect": true,
+    "sinon": true
+  },
+
+  "parser": "babel-eslint",
+
+  "extends": [
+    "airbnb-base"
+  ],
+
+  "plugins": [
+    "import"
+  ],
+
+  "rules": {
+    "arrow-parens": 0,
+    // We use the 'import' plugin which allows for cases "flow" awareness.
+    "no-duplicate-imports": 0,
+    // A .jsx extension is not required for files containing jsx.
+    "react/jsx-filename-extension": 0,
+    // This rule struggles with flow and class properties.
+    "react/sort-comp": 0,
+    // We use global requires in various places, e.g. code splitting instances.
+    "global-require": 0,
+    // Customization
+    "no-var": 2,
+    "no-underscore-dangle": 0,
+    "comma-dangle": [
+      2,
+      "always-multiline"
+    ],
+    "prefer-const": 2,
+    "react/prop-types": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "import/named": 2,
+    "import/no-named-as-default": 0,
+    "import/no-unresolved": 0,
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js"
+        ]
+      }
+    }
+  }
+}
