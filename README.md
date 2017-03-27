@@ -48,7 +48,7 @@ Syntax : `[{selector=value}]` or `[index]`
 
 > [0].[1].b
 
-> [{a.b=value}]
+> [{a->b=value}]
 
 
 ### Example
