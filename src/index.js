@@ -1,5 +1,6 @@
 import {
   get,
+  replace,
   reduce,
   split,
   includes,
@@ -24,11 +25,11 @@ export const parsePathElement = (pathElement) => {
     const elements = split(pathElement, '[{');
     const objectString = trim(elements[1], '[{}]');
     const key = elements[0];
-    const id = split(objectString, ':')[0];
-    const value = split(objectString, ':')[1];
+    const selector = replace(split(objectString, '=')[0], '->', '.');
+    const value = split(objectString, '=')[1];
     return {
       key,
-      id,
+      selector,
       value,
     };
   }
@@ -45,20 +46,22 @@ const getFromPath = (origin, path) => {
 // Path shapes:
 // a.b
 // a[0].b
-// a[{id:1}].b
+// a[{id=1}].b
 // [0].b
-// [{id:1}].b
+// [{id=1}].b
 
 export const normalizePath = (origin, path = '') => {
   const pathElements = split(path, '.');
   const newValue = reduce(pathElements, (result, pathElement) => {
+    console.log('pathElement', pathElement);
     if (detectArrayOfObject(pathElement)) {
-      const { key, id, value } = parsePathElement(pathElement);
+      const { key, selector, value } = parsePathElement(pathElement);
+      console.log('selector', selector);
       const newPathArray = key ? concat(result, key) : result;
       const newPath = join(newPathArray, '.');
       const valueFromKey = getFromPath(origin, newPath);
       const newIndex = findIndex(valueFromKey, objectInArray => (
-        isEqual(toString(objectInArray[id]), value)
+        isEqual(toString(get(objectInArray, selector)), value)
       ));
 
       return concat(result, `${key}[${newIndex}]`);

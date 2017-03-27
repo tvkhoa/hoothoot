@@ -28,13 +28,28 @@ It will take a path which has shape like:
 
 > a[0].b
 
-> a[{id:1}].b
+> a[{selector=value}].b
 
 > [0].b
 
-> [{id:1}].b
+> [{selector=value}].b
 
 And normalize it to a string that lodash get set can understand
+
+### Object path
+
+Syntax : `.key`
+
+> a.b.c.d
+
+### Array path
+
+Syntax : `[{selector=value}]` or `[index]`
+
+> [0].[1].b
+
+> [{a.b=value}]
+
 
 ### Example
 
@@ -49,27 +64,33 @@ import {
 
 const origin = [
   {
-    a1: 'a1',
+    a1: 'a1Value',
     b1: {
-      c1: 'c1',
+      c1: 'c1Value',
     },
   },
   {
-    a2: 'a2',
+    a2: 'a2Value',
     b2: {
-      c2: 'c2',
+      c2: 'c2Value',
     },
   },
 ];
 
 // getDeepPath
-const path = '[{a1:a1}].b1.c1';
+const path = '[{a1=a1Value}].b1.c1';
+const actualGetDeepPath1 = getDeepPath(path)(origin);
+const actualGetDeepPath2 = getDeepPath(path, origin);
+const expected = '[0].b1.c1';
+
+// getDeepPath
+const path = '[{b1->c1=c1Value}].b1.c1';
 const actualGetDeepPath1 = getDeepPath(path)(origin);
 const actualGetDeepPath2 = getDeepPath(path, origin);
 const expected = '[0].b1.c1';
 
 // deepGet
-const path = '[{a1:a1}].b1';
+const path = '[{a1=a1Value}].b1';
 const actualDeepGet1 = deepGet(path)(origin);
 const actualDeepGet2 = deepGet(path, origin);
 const expected = {
@@ -77,7 +98,7 @@ const expected = {
 };
 
 // deepSet
-const path = '[{a1:a1}].b1';
+const path = '[{a1=a1Value}].b1';
 const data = {
   d1: 'd1',
 };
@@ -100,7 +121,7 @@ const expected = [
 ];
 
 // deepUpdate
-const path = '[{a1:a1}].b1';
+const path = '[{a1=a1Value}].b1';
 const updateFunction = (oldData) => {
   // oldData = { c1: c1 }
   return {
