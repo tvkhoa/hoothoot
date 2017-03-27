@@ -206,7 +206,7 @@ describe('README should work', () => {
 
   describe.only('getDeepPath with selector', () => {
     it('should work', () => {
-      const path = '[{b2->c2=c2}].a2';
+      const path = '[{b2.c2=c2}].a2';
       const actualGetDeepPath1 = getDeepPath(path)(origin);
       const actualGetDeepPath2 = getDeepPath(path, origin);
       const expected = '[1].a2';

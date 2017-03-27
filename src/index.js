@@ -25,7 +25,7 @@ export const parsePathElement = (pathElement) => {
     const elements = split(pathElement, '[{');
     const objectString = trim(elements[1], '[{}]');
     const key = elements[0];
-    const selector = replace(split(objectString, '=')[0], '->', '.');
+    const selector = split(objectString, '=')[0];
     const value = split(objectString, '=')[1];
     return {
       key,
@@ -51,7 +51,9 @@ const getFromPath = (origin, path) => {
 // [{id=1}].b
 
 export const normalizePath = (origin, path = '') => {
-  const pathElements = split(path, '.');
+  const magicRegex = new RegExp(/(?!\B\[[^\]]*)\.(?![^[]*\]\B)/, 'g');
+
+  const pathElements = split(path, magicRegex);
   const newValue = reduce(pathElements, (result, pathElement) => {
     console.log('pathElement', pathElement);
     if (detectArrayOfObject(pathElement)) {

@@ -48,7 +48,7 @@ Syntax : `[{selector=value}]` or `[index]`
 
 > [0].[1].b
 
-> [{a->b=value}]
+> [{a.b=value}]
 
 
 ### Example
@@ -84,7 +84,7 @@ const actualGetDeepPath2 = getDeepPath(path, origin);
 const expected = '[0].b1.c1';
 
 // getDeepPath
-const path = '[{b1->c1=c1Value}].b1.c1';
+const path = '[{b1.c1=c1Value}].b1.c1';
 const actualGetDeepPath1 = getDeepPath(path)(origin);
 const actualGetDeepPath2 = getDeepPath(path, origin);
 const expected = '[0].b1.c1';
