@@ -204,7 +204,7 @@ describe('README should work', () => {
   });
 
 
-  describe.only('getDeepPath with selector', () => {
+  describe('getDeepPath with selector', () => {
     it('should work', () => {
       const path = '[{b2.c2=c2}].a2';
       const actualGetDeepPath1 = getDeepPath(path)(origin);
@@ -272,13 +272,11 @@ describe('README should work', () => {
   describe('deepUpdate', () => {
     it('should work', () => {
       const path = '[{a1=a1}].b1';
-      const updateFunction = (oldData) => {
-        // oldData = { c1: c1 }
-        return {
-          ...oldData,
-          d1: 'd1',
-        };
-      };
+      // oldData = { c1: c1 }
+      const updateFunction = (oldData) => ({
+        ...oldData,
+        d1: 'd1',
+      });
 
       const newOrigin1 = deepUpdate(path)(updateFunction)(origin);
       const newOrigin2 = deepUpdate(path, updateFunction)(origin);
