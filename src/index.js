@@ -47,12 +47,13 @@ const getFromPath = (origin, path) => {
 // a[0].b
 // a[{id:1}].b
 // [0].b
+// [{id:1}].b
+
 export const normalizePath = (origin, path = '') => {
   const pathElements = split(path, '.');
   const newValue = reduce(pathElements, (result, pathElement) => {
     if (detectArrayOfObject(pathElement)) {
       const { key, id, value } = parsePathElement(pathElement);
-
       const newPathArray = key ? concat(result, key) : result;
       const newPath = join(newPathArray, '.');
       const valueFromKey = getFromPath(origin, newPath);
@@ -67,12 +68,16 @@ export const normalizePath = (origin, path = '') => {
   return join(newValue, '.');
 };
 
+const getDeepPathFunction = (path, origin) => normalizePath(origin, path);
+
+export const getDeepPath = curry(getDeepPathFunction);
+
 // NormalizeGet
 export const normalizedGetFunction = (path, origin) => {
   const normalizedPath = normalizePath(origin, path);
   return get(origin, normalizedPath);
 };
-export const normalizedGet = curry(normalizedGetFunction);
+export const deepGet = curry(normalizedGetFunction);
 
 // NormalizeSet
 export const normalizedSetFunction = (path, data, origin) => {
@@ -81,7 +86,7 @@ export const normalizedSetFunction = (path, data, origin) => {
   set(newOrigin, normalizedPath, data);
   return newOrigin;
 };
-export const normalizedSet = curry(normalizedSetFunction);
+export const deepSet = curry(normalizedSetFunction);
 
 
 // NormalizeUpdate
@@ -93,7 +98,7 @@ export const normalizedUpdateFunction = (path, updateFunction, origin) => {
   set(newOrigin, normalizedPath, newData);
   return newOrigin;
 };
-export const normalizedUpdate = curry(normalizedUpdateFunction);
+export const deepUpdate = curry(normalizedUpdateFunction);
 
 
 export default normalizePath;

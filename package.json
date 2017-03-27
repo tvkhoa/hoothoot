@@ -4,6 +4,12 @@
   "description": "hoothoot hoothoot",
   "main": "lib/index.js",
   "author": "Khoa Thai",
+  "contributors": [
+    {
+      "name": "Vu Pham",
+      "email": "phamhoaivu911@gmail.com"
+    }
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
