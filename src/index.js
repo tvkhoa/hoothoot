@@ -50,7 +50,7 @@ const getFromPath = (origin, path) => {
 // [{id=1}].b
 
 export const normalizePath = (origin, path = '') => {
-  const magicRegex = new RegExp(/(?!\[[^\]]*)\.(?![^[]*\])/, 'g');
+  const magicRegex = new RegExp(/\.(?![^[]*\])/, 'g');
 
   const pathElements = split(path, magicRegex);
   const newValue = reduce(pathElements, (result, pathElement) => {
