@@ -55,10 +55,11 @@ const config = {
   },
   plugins: plugins,
   externals : {
-    lodash : {
-      commonjs: "lodash",
-      amd: "lodash",
-      root: "_" // indicates global variable
+    lodash: {
+      commonjs: 'lodash',
+      commonjs2: 'lodash',
+      amd: '_',
+      root: '_'
     }
   },
 };
