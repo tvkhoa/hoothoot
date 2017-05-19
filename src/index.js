@@ -54,10 +54,8 @@ export const normalizePath = (origin, path = '') => {
 
   const pathElements = split(path, magicRegex);
   const newValue = reduce(pathElements, (result, pathElement) => {
-    console.log('pathElement', pathElement);
     if (detectArrayOfObject(pathElement)) {
       const { key, selector, value } = parsePathElement(pathElement);
-      console.log('selector', selector);
       const newPathArray = key ? concat(result, key) : result;
       const newPath = join(newPathArray, '.');
       const valueFromKey = getFromPath(origin, newPath);
