@@ -6,7 +6,7 @@ export default {
     file: 'es/index.js',
     format: 'es',
   }, {
-    file: 'lib/index.js',
+    file: 'lib/index.cjs',
     format: 'cjs',
   }],
   plugins: [swc({
